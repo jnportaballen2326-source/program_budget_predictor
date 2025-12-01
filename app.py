@@ -7,25 +7,6 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.metrics import mean_squared_error, r2_score
 import matplotlib.pyplot as plt
 
-def add_bg_from_github():
-    st.markdown(
-        """
-        <style>
-        .stApp {
-            background-image: url("https://github.com/jnportaballen2326-source/program_budget_predictor/blob/main/background.jpg");
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-position: center;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
-
-# Then call it:
-add_bg_from_github()
-
 # Load data from CSV
 @st.cache_data
 def load_data(file_path):
@@ -150,6 +131,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
