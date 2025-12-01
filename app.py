@@ -48,17 +48,63 @@ def add_bg_from_local(image_file):
         background-color: rgba(255, 255, 255, 0.95);
     }}
     
-    /* Style headers */
-    h1, h2, h3 {{
-        color: #1f3c5f;
+    /* Make ALL text black for better readability */
+    .stApp, .main, .block-container, .stSidebar, 
+    h1, h2, h3, h4, h5, h6, p, span, div, label,
+    .stMarkdown, .stText, .stNumberInput, .stSelectbox,
+    .stRadio, .stButton, .stMetric, .stTab, .stTabs {{
+        color: #000000 !important;
     }}
     
-    /* Style metric cards */
+    /* Style headers with black color */
+    h1, h2, h3 {{
+        color: #000000 !important;
+    }}
+    
+    /* Style metric cards with black text */
     .stMetric {{
         background-color: rgba(255, 255, 255, 0.9);
         padding: 10px;
         border-radius: 5px;
         border-left: 4px solid #1f3c5f;
+        color: #000000 !important;
+    }}
+    
+    .stMetric label, .stMetric div {{
+        color: #000000 !important;
+    }}
+    
+    /* Style sidebar text */
+    .stSidebar * {{
+        color: #000000 !important;
+    }}
+    
+    /* Style input labels */
+    .stNumberInput label, .stSelectbox label, .stRadio label {{
+        color: #000000 !important;
+    }}
+    
+    /* Style tabs */
+    .stTabs [data-baseweb="tab-list"] {{
+        color: #000000 !important;
+    }}
+    
+    .stTabs [data-baseweb="tab"] {{
+        color: #000000 !important;
+    }}
+    
+    /* Style error messages */
+    .stAlert {{
+        color: #000000 !important;
+    }}
+    
+    .stAlert div {{
+        color: #000000 !important;
+    }}
+    
+    /* Style footer */
+    footer {{
+        color: #000000 !important;
     }}
     </style>
     """
@@ -78,33 +124,96 @@ def main():
     bg_image = add_bg_from_local('background.jpg')
     st.markdown(bg_image, unsafe_allow_html=True)
     
-    # Custom CSS for additional styling
+    # Custom CSS for additional styling with black text
     st.markdown("""
     <style>
+    /* Main text styling */
+    .stApp, .main, .block-container {
+        color: #000000 !important;
+    }
+    
     .prediction-box {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
+        color: #000000 !important;
         padding: 25px;
         border-radius: 15px;
         margin: 20px 0;
         text-align: center;
         box-shadow: 0 10px 20px rgba(0,0,0,0.2);
     }
+    
+    .prediction-box h3 {
+        color: #000000 !important;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+    
+    .prediction-box p {
+        color: #000000 !important;
+        opacity: 0.9;
+    }
+    
     .prediction-amount {
         font-size: 2.5em;
         font-weight: bold;
         margin: 10px 0;
+        color: #000000 !important;
     }
+    
     .stButton>button {
         background-color: #1f3c5f;
-        color: white;
+        color: #000000 !important;
         border: none;
         padding: 10px 20px;
         border-radius: 5px;
         font-weight: bold;
     }
+    
     .stButton>button:hover {
         background-color: #2c5282;
+        color: #000000 !important;
+    }
+    
+    /* Input field styling */
+    .stNumberInput input, .stSelectbox select, .stTextInput input {
+        color: #000000 !important;
+        background-color: rgba(255, 255, 255, 0.9) !important;
+    }
+    
+    /* Radio button styling */
+    .stRadio div {
+        color: #000000 !important;
+    }
+    
+    /* Tab styling */
+    .stTabs [data-baseweb="tab-list"] button [data-testid="stMarkdownContainer"] p {
+        color: #000000 !important;
+        font-weight: bold;
+    }
+    
+    /* Metric value styling */
+    [data-testid="stMetricValue"] {
+        color: #000000 !important;
+        font-weight: bold;
+    }
+    
+    [data-testid="stMetricLabel"] {
+        color: #000000 !important;
+    }
+    
+    /* Header styling */
+    h1, h2, h3, h4, h5, h6 {
+        color: #000000 !important;
+    }
+    
+    /* Divider styling */
+    hr {
+        border-color: rgba(0, 0, 0, 0.2) !important;
+    }
+    
+    /* Footer styling */
+    footer {
+        color: #000000 !important;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -221,13 +330,13 @@ def main():
         test_mse = mean_squared_error(actual_exp, test_pred_exp)
         test_r2 = r2_score(actual_exp, test_pred_exp)
 
-        # Display predictions in a styled box
+        # Display predictions in a styled box - changed text to black
         st.markdown(f"""
         <div class="prediction-box">
-            <h3 style="color: white; margin-bottom: 20px;"> Budget Prediction</h3>
-            <div class="prediction-amount">₱{predicted_budget:,.2f}</div>
-            <p style="opacity: 0.9;">Based on {participants} participants, {duration} hours, and {staffs} staff members</p>
-            <p style="opacity: 0.9;">Program Type: {program_type} | Month: {month}</p>
+            <h3 style="color: #000000 !important; margin-bottom: 20px; font-weight: bold;">Budget Prediction</h3>
+            <div class="prediction-amount" style="color: #000000 !important;">₱{predicted_budget:,.2f}</div>
+            <p style="color: #000000 !important; opacity: 0.9;">Based on {participants} participants, {duration} hours, and {staffs} staff members</p>
+            <p style="color: #000000 !important; opacity: 0.9;">Program Type: {program_type} | Month: {month}</p>
         </div>
         """, unsafe_allow_html=True)
 
@@ -255,11 +364,15 @@ def main():
             ax1.plot([actual_exp.min(), actual_exp.max()],
                      [actual_exp.min(), actual_exp.max()],
                      'r--', label="Perfect Prediction", linewidth=2)
-            ax1.set_title("Actual vs Predicted Budget", fontsize=14, fontweight='bold')
-            ax1.set_xlabel("Actual Budget (₱)", fontsize=12)
-            ax1.set_ylabel("Predicted Budget (₱)", fontsize=12)
+            ax1.set_title("Actual vs Predicted Budget", fontsize=14, fontweight='bold', color='black')
+            ax1.set_xlabel("Actual Budget (₱)", fontsize=12, color='black')
+            ax1.set_ylabel("Predicted Budget (₱)", fontsize=12, color='black')
+            ax1.tick_params(colors='black')
             ax1.grid(True, alpha=0.3)
             ax1.legend()
+            # Set plot background to white
+            fig1.patch.set_facecolor('white')
+            ax1.set_facecolor('white')
             st.pyplot(fig1)
 
         with tab2:
@@ -268,10 +381,14 @@ def main():
             fig2, ax2 = plt.subplots(figsize=(10, 6))
             ax2.hist(errors, bins=20, edgecolor='black', color='lightcoral', alpha=0.7)
             ax2.axvline(x=0, color='red', linestyle='--', linewidth=2)
-            ax2.set_title("Distribution of Prediction Errors", fontsize=14, fontweight='bold')
-            ax2.set_xlabel("Error (Actual - Predicted) in ₱", fontsize=12)
-            ax2.set_ylabel("Frequency", fontsize=12)
+            ax2.set_title("Distribution of Prediction Errors", fontsize=14, fontweight='bold', color='black')
+            ax2.set_xlabel("Error (Actual - Predicted) in ₱", fontsize=12, color='black')
+            ax2.set_ylabel("Frequency", fontsize=12, color='black')
+            ax2.tick_params(colors='black')
             ax2.grid(True, alpha=0.3)
+            # Set plot background to white
+            fig2.patch.set_facecolor('white')
+            ax2.set_facecolor('white')
             st.pyplot(fig2)
 
         with tab3:
@@ -293,17 +410,21 @@ def main():
             bars[current_month_index].set_linewidth(3)
             
             ax3.set_title(f"Predicted Budget by Month\n(Current selection: {month})", 
-                         fontsize=14, fontweight='bold')
-            ax3.set_xlabel("Month", fontsize=12)
-            ax3.set_ylabel("Predicted Budget (₱)", fontsize=12)
+                         fontsize=14, fontweight='bold', color='black')
+            ax3.set_xlabel("Month", fontsize=12, color='black')
+            ax3.set_ylabel("Predicted Budget (₱)", fontsize=12, color='black')
+            ax3.tick_params(colors='black')
             ax3.grid(True, alpha=0.3, axis='y')
             
             # Add value labels on bars
             for bar in bars:
                 height = bar.get_height()
                 ax3.text(bar.get_x() + bar.get_width()/2., height,
-                        f'₱{height:,.0f}', ha='center', va='bottom', fontsize=9)
+                        f'₱{height:,.0f}', ha='center', va='bottom', fontsize=9, color='black')
             
+            # Set plot background to white
+            fig3.patch.set_facecolor('white')
+            ax3.set_facecolor('white')
             st.pyplot(fig3)
 
         # Display summary statistics
@@ -323,10 +444,10 @@ def main():
     except Exception as e:
         st.error(f"An error occurred during prediction: {str(e)}")
 
-    # Footer
+    # Footer with black text
     st.markdown("---")
     st.markdown(
-        "<div style='text-align: center; color: #666;'>"
+        "<div style='text-align: center; color: #000000 !important;'>"
         "Program Budget Predictor | Using Decision Tree Regression | Data Source: PROGRAM_TAGOLOAN_DATA.csv"
         "</div>",
         unsafe_allow_html=True
