@@ -48,7 +48,7 @@ def add_bg_from_local(image_file):
         background-color: rgba(255, 255, 255, 0.95);
     }}
     
-    /* Make ALL text black for better readability */
+    /* Make ALL text white for better readability */
     .stApp, .main, .block-container, .stSidebar, 
     h1, h2, h3, h4, h5, h6, p, span, div, label,
     .stMarkdown, .stText, .stNumberInput, .stSelectbox,
@@ -56,12 +56,12 @@ def add_bg_from_local(image_file):
         color: #000000 !important;
     }}
     
-    /* Style headers with black color */
+    /* Style headers with white color */
     h1, h2, h3 {{
         color: #000000 !important;
     }}
     
-    /* Style metric cards with black text */
+    /* Style metric cards with white text */
     .stMetric {{
         background-color: rgba(255, 255, 255, 0.9);
         padding: 10px;
@@ -364,10 +364,10 @@ def main():
             ax1.plot([actual_exp.min(), actual_exp.max()],
                      [actual_exp.min(), actual_exp.max()],
                      'r--', label="Perfect Prediction", linewidth=2)
-            ax1.set_title("Actual vs Predicted Budget", fontsize=14, fontweight='bold', color='black')
-            ax1.set_xlabel("Actual Budget (₱)", fontsize=12, color='black')
-            ax1.set_ylabel("Predicted Budget (₱)", fontsize=12, color='black')
-            ax1.tick_params(colors='black')
+            ax1.set_title("Actual vs Predicted Budget", fontsize=14, fontweight='bold', color='white')
+            ax1.set_xlabel("Actual Budget (₱)", fontsize=12, color='white')
+            ax1.set_ylabel("Predicted Budget (₱)", fontsize=12, color='white')
+            ax1.tick_params(colors='white')
             ax1.grid(True, alpha=0.3)
             ax1.legend()
             # Set plot background to white
@@ -379,12 +379,12 @@ def main():
             # Error distribution
             errors = actual_exp - test_pred_exp
             fig2, ax2 = plt.subplots(figsize=(10, 6))
-            ax2.hist(errors, bins=20, edgecolor='black', color='lightcoral', alpha=0.7)
+            ax2.hist(errors, bins=20, edgecolor='white', color='lightcoral', alpha=0.7)
             ax2.axvline(x=0, color='red', linestyle='--', linewidth=2)
-            ax2.set_title("Distribution of Prediction Errors", fontsize=14, fontweight='bold', color='black')
-            ax2.set_xlabel("Error (Actual - Predicted) in ₱", fontsize=12, color='black')
-            ax2.set_ylabel("Frequency", fontsize=12, color='black')
-            ax2.tick_params(colors='black')
+            ax2.set_title("Distribution of Prediction Errors", fontsize=14, fontweight='bold', color='white')
+            ax2.set_xlabel("Error (Actual - Predicted) in ₱", fontsize=12, color='white')
+            ax2.set_ylabel("Frequency", fontsize=12, color='white')
+            ax2.tick_params(colors='white')
             ax2.grid(True, alpha=0.3)
             # Set plot background to white
             fig2.patch.set_facecolor('white')
@@ -410,17 +410,17 @@ def main():
             bars[current_month_index].set_linewidth(3)
             
             ax3.set_title(f"Predicted Budget by Month\n(Current selection: {month})", 
-                         fontsize=14, fontweight='bold', color='black')
-            ax3.set_xlabel("Month", fontsize=12, color='black')
-            ax3.set_ylabel("Predicted Budget (₱)", fontsize=12, color='black')
-            ax3.tick_params(colors='black')
+                         fontsize=14, fontweight='bold', color='white')
+            ax3.set_xlabel("Month", fontsize=12, color='white')
+            ax3.set_ylabel("Predicted Budget (₱)", fontsize=12, color='white')
+            ax3.tick_params(colors='white')
             ax3.grid(True, alpha=0.3, axis='y')
             
             # Add value labels on bars
             for bar in bars:
                 height = bar.get_height()
                 ax3.text(bar.get_x() + bar.get_width()/2., height,
-                        f'₱{height:,.0f}', ha='center', va='bottom', fontsize=9, color='black')
+                        f'₱{height:,.0f}', ha='center', va='bottom', fontsize=9, color='white')
             
             # Set plot background to white
             fig3.patch.set_facecolor('white')
@@ -455,3 +455,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
