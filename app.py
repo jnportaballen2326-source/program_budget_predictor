@@ -1,10 +1,29 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import base64
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.metrics import mean_squared_error, r2_score
 import matplotlib.pyplot as plt
+
+def add_bg_from_local(image_file):
+    with open(image_file, "rb") as f:
+        data = f.read()
+    encoded = base64.b64encode(data).decode()
+    st.markdown(
+        f"""
+        <style>
+        .stApp {{
+            background-image: url("data:image/png;base64,{encoded}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
 
 # Load data from CSV
 @st.cache_data
@@ -130,3 +149,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
