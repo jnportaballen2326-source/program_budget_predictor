@@ -7,23 +7,24 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.metrics import mean_squared_error, r2_score
 import matplotlib.pyplot as plt
 
-def add_bg_from_local(image_file):
-    with open(image_file, "rb") as f:
-        data = f.read()
-    encoded = base64.b64encode(data).decode()
+def add_bg_from_github():
     st.markdown(
-        f"""
+        """
         <style>
-        .stApp {{
-            background-image: url("data:image/png;base64,{encoded}");
+        .stApp {
+            background-image: url("https://raw.githubusercontent.com/your-username/your-repo/main/background.jpg");
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
-        }}
+            background-position: center;
+        }
         </style>
         """,
         unsafe_allow_html=True
     )
+
+# Then call it:
+add_bg_from_github()
 
 # Load data from CSV
 @st.cache_data
@@ -149,4 +150,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
