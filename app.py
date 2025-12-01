@@ -12,7 +12,7 @@ def add_bg_from_github():
         """
         <style>
         .stApp {
-            background-image: url("https://raw.githubusercontent.com/your-username/your-repo/main/background.jpg");
+            background-image: url("https://github.com/jnportaballen2326-source/program_budget_predictor/blob/main/background.jpg");
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
@@ -150,5 +150,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
