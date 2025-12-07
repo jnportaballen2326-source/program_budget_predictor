@@ -51,7 +51,7 @@ def add_bg_from_local(image_file):
     /* Make ALL text black for better readability */
     .stApp, .main, .block-container, .stSidebar, 
     h1, h2, h3, h4, h5, h6, p, span, div, label,
-    .stMarkdown, .stText, .stNumberInput, .stSelectbox,
+    .stMarkdown, .stText, .stTextInput, .stSelectbox,
     .stRadio, .stButton, .stMetric, .stTab, .stTabs {{
         color: #000000 !important;
     }}
@@ -80,7 +80,7 @@ def add_bg_from_local(image_file):
     }}
     
     /* Style input labels */
-    .stNumberInput label, .stSelectbox label, .stRadio label {{
+    .stTextInput label, .stSelectbox label, .stRadio label {{
         color: #000000 !important;
     }}
     
@@ -132,6 +132,45 @@ def main():
         color: #000000 !important;
     }
     
+    /* Fix for selectbox - ensure text is visible */
+    .stSelectbox label {
+        color: #000000 !important;
+        font-weight: bold !important;
+    }
+    
+    /* Selectbox dropdown styling */
+    [data-baseweb="select"] {
+        color: #000000 !important;
+        background-color: white !important;
+    }
+    
+    /* Selectbox dropdown items */
+    [role="listbox"] li {
+        color: #000000 !important;
+        background-color: white !important;
+    }
+    
+    /* Selectbox selected value */
+    [data-baseweb="select"] > div {
+        color: #000000 !important;
+        background-color: white !important;
+    }
+    
+    /* Text input styling */
+    .stTextInput input {
+        color: #000000 !important;
+        background-color: rgba(255, 255, 255, 0.9) !important;
+        border: 1px solid #ccc !important;
+        border-radius: 4px !important;
+        padding: 8px !important;
+    }
+    
+    /* Text input label */
+    .stTextInput label {
+        color: #000000 !important;
+        font-weight: bold !important;
+    }
+    
     .prediction-box {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: #000000 !important;
@@ -162,7 +201,7 @@ def main():
     
     .stButton>button {
         background-color: #1f3c5f;
-        color: #000000 !important;
+        color: white !important;
         border: none;
         padding: 10px 20px;
         border-radius: 5px;
@@ -171,11 +210,11 @@ def main():
     
     .stButton>button:hover {
         background-color: #2c5282;
-        color: #000000 !important;
+        color: white !important;
     }
     
-    /* Input field styling */
-    .stNumberInput input, .stSelectbox select, .stTextInput input {
+    /* Input field styling - removed for text inputs */
+    .stNumberInput input, .stSelectbox select {
         color: #000000 !important;
         background-color: rgba(255, 255, 255, 0.9) !important;
     }
@@ -183,6 +222,11 @@ def main():
     /* Radio button styling */
     .stRadio div {
         color: #000000 !important;
+    }
+    
+    .stRadio label {
+        color: #000000 !important;
+        font-weight: bold !important;
     }
     
     /* Tab styling */
@@ -228,27 +272,35 @@ def main():
         # Add some visual separation
         st.markdown("### Program Details")
         
-        participants = st.number_input(
+        # Use text inputs instead of number inputs to remove increment buttons
+        participants_str = st.text_input(
             "**Number of Participants:**",
-            min_value=1,
-            value=30,
+            value="30",
             help="Enter the total number of participants expected"
         )
         
-        duration = st.number_input(
+        duration_str = st.text_input(
             "**Duration of Program (hours):**",
-            min_value=1.0,
-            value=10.0,
-            step=0.5,
+            value="10.0",
             help="Enter the total duration in hours"
         )
         
-        staffs = st.number_input(
+        staffs_str = st.text_input(
             "**Number of Staff Members:**",
-            min_value=1,
-            value=12,
+            value="12",
             help="Enter the number of staff required"
         )
+        
+        # Convert string inputs to numbers with validation
+        try:
+            participants = int(participants_str) if participants_str else 30
+            duration = float(duration_str) if duration_str else 10.0
+            staffs = int(staffs_str) if staffs_str else 12
+        except ValueError:
+            st.error("Please enter valid numbers")
+            participants = 30
+            duration = 10.0
+            staffs = 12
         
         st.markdown("---")
         st.markdown("### Program Settings")
@@ -260,12 +312,15 @@ def main():
             help="Choose the type of program"
         )
         
+        # Add a container with specific styling for the month selector
+        st.markdown('<div style="margin: 20px 0;">', unsafe_allow_html=True)
         month = st.selectbox(
             "**Select Month:**",
             ['January', 'February', 'March', 'April', 'May', 'June',
              'July', 'August', 'September', 'October', 'November', 'December'],
             help="Select the month when the program will be held"
         )
+        st.markdown('</div>', unsafe_allow_html=True)
         
         st.markdown("---")
         
@@ -455,6 +510,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
