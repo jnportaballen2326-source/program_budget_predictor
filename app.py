@@ -171,49 +171,61 @@ def main():
         font-weight: bold !important;
     }
     
+    /* Lighter prediction box with better contrast */
     .prediction-box {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
         color: #000000 !important;
         padding: 25px;
         border-radius: 15px;
         margin: 20px 0;
         text-align: center;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        border: 2px solid #2196f3;
     }
     
     .prediction-box h3 {
-        color: #000000 !important;
+        color: #0d47a1 !important;
         margin-bottom: 20px;
         font-weight: bold;
+        font-size: 1.5em;
     }
     
     .prediction-box p {
-        color: #000000 !important;
-        opacity: 0.9;
+        color: #1565c0 !important;
+        opacity: 1;
+        font-size: 1.1em;
+        margin: 10px 0;
     }
     
     .prediction-amount {
-        font-size: 2.5em;
+        font-size: 2.8em;
         font-weight: bold;
-        margin: 10px 0;
-        color: #000000 !important;
+        margin: 20px 0;
+        color: #0d47a1 !important;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
     }
     
+    /* Style for the Calculate Budget button */
     .stButton>button {
         background-color: #1f3c5f;
         color: white !important;
         border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
+        padding: 12px 24px;
+        border-radius: 8px;
         font-weight: bold;
+        font-size: 1.1em;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
     
     .stButton>button:hover {
         background-color: #2c5282;
         color: white !important;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 8px rgba(0,0,0,0.15);
     }
     
-    /* Input field styling - removed for text inputs */
+    /* Input field styling */
     .stNumberInput input, .stSelectbox select {
         color: #000000 !important;
         background-color: rgba(255, 255, 255, 0.9) !important;
@@ -235,14 +247,29 @@ def main():
         font-weight: bold;
     }
     
-    /* Metric value styling */
+    /* Metric value styling - increased font size and fixed width */
     [data-testid="stMetricValue"] {
         color: #000000 !important;
         font-weight: bold;
+        font-size: 1.2em !important;
     }
     
     [data-testid="stMetricLabel"] {
         color: #000000 !important;
+        font-size: 0.9em !important;
+    }
+    
+    /* Special styling for program type metric to prevent text cramping */
+    .program-type-metric [data-testid="stMetricValue"] {
+        font-size: 1.1em !important;
+        word-wrap: break-word;
+        white-space: normal !important;
+        line-height: 1.4 !important;
+        height: auto !important;
+        min-height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     
     /* Header styling */
@@ -257,6 +284,21 @@ def main():
     
     /* Footer styling */
     footer {
+        color: #000000 !important;
+    }
+    
+    /* Hide Streamlit default menu */
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    
+    /* Make deploy button visible */
+    .stDeployButton {
+        visibility: visible !important;
+    }
+    
+    /* Legend text styling for plots */
+    .legend text {
+        fill: #000000 !important;
         color: #000000 !important;
     }
     </style>
@@ -385,13 +427,13 @@ def main():
         test_mse = mean_squared_error(actual_exp, test_pred_exp)
         test_r2 = r2_score(actual_exp, test_pred_exp)
 
-        # Display predictions in a styled box - changed text to black
+        # Display predictions in a styled box with lighter color
         st.markdown(f"""
         <div class="prediction-box">
-            <h3 style="color: #000000 !important; margin-bottom: 20px; font-weight: bold;">Budget Prediction</h3>
-            <div class="prediction-amount" style="color: #000000 !important;">₱{predicted_budget:,.2f}</div>
-            <p style="color: #000000 !important; opacity: 0.9;">Based on {participants} participants, {duration} hours, and {staffs} staff members</p>
-            <p style="color: #000000 !important; opacity: 0.9;">Program Type: {program_type} | Month: {month}</p>
+            <h3>Budget Prediction</h3>
+            <div class="prediction-amount">₱{predicted_budget:,.2f}</div>
+            <p>Based on {participants} participants, {duration} hours, and {staffs} staff members</p>
+            <p>Program Type: {program_type} | Month: {month}</p>
         </div>
         """, unsafe_allow_html=True)
 
@@ -424,7 +466,7 @@ def main():
             ax1.set_ylabel("Predicted Budget (₱)", fontsize=12, color='black')
             ax1.tick_params(colors='black')
             ax1.grid(True, alpha=0.3)
-            ax1.legend()
+            ax1.legend(prop={'size': 10, 'color': 'black'})
             # Set plot background to white
             fig1.patch.set_facecolor('white')
             ax1.set_facecolor('white')
@@ -482,17 +524,20 @@ def main():
             ax3.set_facecolor('white')
             st.pyplot(fig3)
 
-        # Display summary statistics
+        # Display summary statistics with improved program type display
         st.markdown("---")
         st.header("Summary Statistics")
         
         summary_col1, summary_col2, summary_col3 = st.columns(3)
         with summary_col1:
+            # Custom container for program type to prevent text cramping
+            st.markdown('<div class="program-type-metric">', unsafe_allow_html=True)
             st.metric("Program Type", program_type)
+            st.markdown('</div>', unsafe_allow_html=True)
         with summary_col2:
             st.metric("Selected Month", month)
         with summary_col3:
-            st.metric("Participant Count", participants)
+            st.metric("Participant Count", f"{participants:,}")
 
     except KeyError as e:
         st.error(f"Missing required column in data: {str(e)}")
