@@ -124,7 +124,7 @@ def main():
     bg_image = add_bg_from_local('background.jpg')
     st.markdown(bg_image, unsafe_allow_html=True)
     
-    # Custom CSS for additional styling with black text
+    # Custom CSS for additional styling with black text and removing increment buttons
     st.markdown("""
     <style>
     /* Main text styling */
@@ -215,6 +215,34 @@ def main():
     footer {
         color: #000000 !important;
     }
+    
+    /* Remove increment/decrement buttons from number input - SIMPLIFIED */
+    .stNumberInput button {
+        display: none !important;
+    }
+    
+    /* Hide the increment/decrement buttons */
+    div[data-baseweb="input"] > div:nth-child(3),
+    div[data-baseweb="input"] > div:nth-child(4) {
+        display: none !important;
+    }
+    
+    /* Make the input field wider since we removed the buttons */
+    .stNumberInput input {
+        width: 100% !important;
+        padding-right: 10px !important;
+    }
+    
+    /* Remove spinner buttons from number input */
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
     </style>
     """, unsafe_allow_html=True)
     
@@ -228,11 +256,15 @@ def main():
         # Add some visual separation
         st.markdown("### Program Details")
         
+        # Number inputs WITHOUT increment/decrement buttons
+        # These will now show as plain text boxes where users can type directly
         participants = st.number_input(
             "**Number of Participants:**",
             min_value=1,
             value=30,
-            help="Enter the total number of participants expected"
+            help="Enter the total number of participants expected",
+            step=1,
+            key="participants"
         )
         
         duration = st.number_input(
@@ -240,15 +272,25 @@ def main():
             min_value=1.0,
             value=10.0,
             step=0.5,
-            help="Enter the total duration in hours"
+            help="Enter the total duration in hours",
+            key="duration"
         )
         
         staffs = st.number_input(
             "**Number of Staff Members:**",
             min_value=1,
             value=12,
-            help="Enter the number of staff required"
+            help="Enter the number of staff required",
+            step=1,
+            key="staffs"
         )
+        
+        # Add inline help text
+        st.markdown("""
+        <div style="background-color: #f0f8ff; padding: 10px; border-radius: 5px; margin: 10px 0; border-left: 4px solid #1f3c5f;">
+        <small>💡 <strong>Tip:</strong> Click on any input field above and type your numbers directly.</small>
+        </div>
+        """, unsafe_allow_html=True)
         
         st.markdown("---")
         st.markdown("### Program Settings")
@@ -274,10 +316,10 @@ def main():
 
     # Load data
     try:
-        data_file = "PROGRAM_SANTACRUZ_DATA.csv"
+        data_file = "PROGRAM_TAGOLOAN_DATA.csv"
         data = load_data(data_file)
     except FileNotFoundError:
-        st.error("Data file not found. Please ensure 'PROGRAM_SANTACRUZ_DATA.csv' is in the same directory.")
+        st.error("Data file not found. Please ensure 'PROGRAM_TAGOLOAN_DATA.csv' is in the same directory.")
         return
     except Exception as e:
         st.error(f"Error loading data: {str(e)}")
@@ -448,11 +490,10 @@ def main():
     st.markdown("---")
     st.markdown(
         "<div style='text-align: center; color: #000000 !important;'>"
-        "Program Budget Predictor | Using Decision Tree Regression | Data Source: PROGRAM_SANTACRUZ_DATA.csv"
+        "Program Budget Predictor | Using Decision Tree Regression | Data Source: PROGRAM_TAGOLOAN_DATA.csv"
         "</div>",
         unsafe_allow_html=True
     )
 
 if __name__ == "__main__":
     main()
-
