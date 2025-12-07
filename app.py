@@ -274,10 +274,10 @@ def main():
 
     # Load data
     try:
-        data_file = "PROGRAM_TAGOLOAN_DATA.csv"
+        data_file = "PROGRAM_SANTACRUZ_DATA.csv"
         data = load_data(data_file)
     except FileNotFoundError:
-        st.error("Data file not found. Please ensure 'PROGRAM_TAGOLOAN_DATA.csv' is in the same directory.")
+        st.error("Data file not found. Please ensure 'PROGRAM_SANTACRUZ_DATA.csv' is in the same directory.")
         return
     except Exception as e:
         st.error(f"Error loading data: {str(e)}")
@@ -448,10 +448,11 @@ def main():
     st.markdown("---")
     st.markdown(
         "<div style='text-align: center; color: #000000 !important;'>"
-        "Program Budget Predictor | Using Decision Tree Regression | Data Source: PROGRAM_TAGOLOAN_DATA.csv"
+        "Program Budget Predictor | Using Decision Tree Regression | Data Source: PROGRAM_SANTACRUZ_DATA.csv"
         "</div>",
         unsafe_allow_html=True
     )
 
 if __name__ == "__main__":
     main()
+
