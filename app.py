@@ -51,7 +51,7 @@ def add_bg_from_local(image_file):
     /* Make ALL text black for better readability */
     .stApp, .main, .block-container, .stSidebar, 
     h1, h2, h3, h4, h5, h6, p, span, div, label,
-    .stMarkdown, .stText, .stTextInput, .stSelectbox,
+    .stMarkdown, .stText, .stNumberInput, .stSelectbox,
     .stRadio, .stButton, .stMetric, .stTab, .stTabs {{
         color: #000000 !important;
     }}
@@ -80,7 +80,7 @@ def add_bg_from_local(image_file):
     }}
     
     /* Style input labels */
-    .stTextInput label, .stSelectbox label, .stRadio label {{
+    .stNumberInput label, .stSelectbox label, .stRadio label {{
         color: #000000 !important;
     }}
     
@@ -132,101 +132,50 @@ def main():
         color: #000000 !important;
     }
     
-    /* Fix for selectbox - ensure text is visible */
-    .stSelectbox label {
-        color: #000000 !important;
-        font-weight: bold !important;
-    }
-    
-    /* Selectbox dropdown styling */
-    [data-baseweb="select"] {
-        color: #000000 !important;
-        background-color: white !important;
-    }
-    
-    /* Selectbox dropdown items */
-    [role="listbox"] li {
-        color: #000000 !important;
-        background-color: white !important;
-    }
-    
-    /* Selectbox selected value */
-    [data-baseweb="select"] > div {
-        color: #000000 !important;
-        background-color: white !important;
-    }
-    
-    /* Text input styling */
-    .stTextInput input {
-        color: #000000 !important;
-        background-color: rgba(255, 255, 255, 0.9) !important;
-        border: 1px solid #ccc !important;
-        border-radius: 4px !important;
-        padding: 8px !important;
-    }
-    
-    /* Text input label */
-    .stTextInput label {
-        color: #000000 !important;
-        font-weight: bold !important;
-    }
-    
-    /* Lighter prediction box with better contrast */
     .prediction-box {
-        background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: #000000 !important;
         padding: 25px;
         border-radius: 15px;
         margin: 20px 0;
         text-align: center;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        border: 2px solid #2196f3;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
     }
     
     .prediction-box h3 {
-        color: #0d47a1 !important;
+        color: #000000 !important;
         margin-bottom: 20px;
         font-weight: bold;
-        font-size: 1.5em;
     }
     
     .prediction-box p {
-        color: #1565c0 !important;
-        opacity: 1;
-        font-size: 1.1em;
-        margin: 10px 0;
+        color: #000000 !important;
+        opacity: 0.9;
     }
     
     .prediction-amount {
-        font-size: 2.8em;
+        font-size: 2.5em;
         font-weight: bold;
-        margin: 20px 0;
-        color: #0d47a1 !important;
-        text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        margin: 10px 0;
+        color: #000000 !important;
     }
     
-    /* Style for the Calculate Budget button */
     .stButton>button {
         background-color: #1f3c5f;
-        color: white !important;
+        color: #000000 !important;
         border: none;
-        padding: 12px 24px;
-        border-radius: 8px;
+        padding: 10px 20px;
+        border-radius: 5px;
         font-weight: bold;
-        font-size: 1.1em;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
     
     .stButton>button:hover {
         background-color: #2c5282;
-        color: white !important;
-        transform: translateY(-2px);
-        box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+        color: #000000 !important;
     }
     
     /* Input field styling */
-    .stNumberInput input, .stSelectbox select {
+    .stNumberInput input, .stSelectbox select, .stTextInput input {
         color: #000000 !important;
         background-color: rgba(255, 255, 255, 0.9) !important;
     }
@@ -236,40 +185,20 @@ def main():
         color: #000000 !important;
     }
     
-    .stRadio label {
-        color: #000000 !important;
-        font-weight: bold !important;
-    }
-    
     /* Tab styling */
     .stTabs [data-baseweb="tab-list"] button [data-testid="stMarkdownContainer"] p {
         color: #000000 !important;
         font-weight: bold;
     }
     
-    /* Metric value styling - increased font size and fixed width */
+    /* Metric value styling */
     [data-testid="stMetricValue"] {
         color: #000000 !important;
         font-weight: bold;
-        font-size: 1.2em !important;
     }
     
     [data-testid="stMetricLabel"] {
         color: #000000 !important;
-        font-size: 0.9em !important;
-    }
-    
-    /* Special styling for program type metric to prevent text cramping */
-    .program-type-metric [data-testid="stMetricValue"] {
-        font-size: 1.1em !important;
-        word-wrap: break-word;
-        white-space: normal !important;
-        line-height: 1.4 !important;
-        height: auto !important;
-        min-height: 60px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
     }
     
     /* Header styling */
@@ -286,21 +215,6 @@ def main():
     footer {
         color: #000000 !important;
     }
-    
-    /* Hide Streamlit default menu */
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-    
-    /* Make deploy button visible */
-    .stDeployButton {
-        visibility: visible !important;
-    }
-    
-    /* Legend text styling for plots */
-    .legend text {
-        fill: #000000 !important;
-        color: #000000 !important;
-    }
     </style>
     """, unsafe_allow_html=True)
     
@@ -314,55 +228,44 @@ def main():
         # Add some visual separation
         st.markdown("### Program Details")
         
-        # Use text inputs instead of number inputs to remove increment buttons
-        participants_str = st.text_input(
-            "**Number of Participants:**",
-            value="30",
+        participants = st.number_input(
+            "*Number of Participants:*",
+            min_value=1,
+            value=30,
             help="Enter the total number of participants expected"
         )
         
-        duration_str = st.text_input(
-            "**Duration of Program (hours):**",
-            value="10.0",
+        duration = st.number_input(
+            "*Duration of Program (hours):*",
+            min_value=1.0,
+            value=10.0,
+            step=0.5,
             help="Enter the total duration in hours"
         )
         
-        staffs_str = st.text_input(
-            "**Number of Staff Members:**",
-            value="12",
+        staffs = st.number_input(
+            "*Number of Staff Members:*",
+            min_value=1,
+            value=12,
             help="Enter the number of staff required"
         )
-        
-        # Convert string inputs to numbers with validation
-        try:
-            participants = int(participants_str) if participants_str else 30
-            duration = float(duration_str) if duration_str else 10.0
-            staffs = int(staffs_str) if staffs_str else 12
-        except ValueError:
-            st.error("Please enter valid numbers")
-            participants = 30
-            duration = 10.0
-            staffs = 12
         
         st.markdown("---")
         st.markdown("### Program Settings")
         
         program_type = st.radio(
-            "**Select Program Type:**",
+            "*Select Program Type:*",
             ['Competition Program', 'Modeling Program', 'Seminar Program',
              'Sport Program', 'Training Program', 'Workshop Program'],
             help="Choose the type of program"
         )
         
-        # Add a container with specific styling for the month selector
-        st.markdown('<div style="margin: 20px 0;">', unsafe_allow_html=True)
         month = st.selectbox(
-            "**Select Month:**",
+            "*Select Month:*",
             ['January', 'February', 'March', 'April', 'May', 'June',
              'July', 'August', 'September', 'October', 'November', 'December'],
             help="Select the month when the program will be held"
         )
-        st.markdown('</div>', unsafe_allow_html=True)
         
         st.markdown("---")
         
@@ -427,13 +330,13 @@ def main():
         test_mse = mean_squared_error(actual_exp, test_pred_exp)
         test_r2 = r2_score(actual_exp, test_pred_exp)
 
-        # Display predictions in a styled box with lighter color
+        # Display predictions in a styled box - changed text to black
         st.markdown(f"""
         <div class="prediction-box">
-            <h3>Budget Prediction</h3>
-            <div class="prediction-amount">₱{predicted_budget:,.2f}</div>
-            <p>Based on {participants} participants, {duration} hours, and {staffs} staff members</p>
-            <p>Program Type: {program_type} | Month: {month}</p>
+            <h3 style="color: #000000 !important; margin-bottom: 20px; font-weight: bold;">Budget Prediction</h3>
+            <div class="prediction-amount" style="color: #000000 !important;">₱{predicted_budget:,.2f}</div>
+            <p style="color: #000000 !important; opacity: 0.9;">Based on {participants} participants, {duration} hours, and {staffs} staff members</p>
+            <p style="color: #000000 !important; opacity: 0.9;">Program Type: {program_type} | Month: {month}</p>
         </div>
         """, unsafe_allow_html=True)
 
@@ -466,7 +369,7 @@ def main():
             ax1.set_ylabel("Predicted Budget (₱)", fontsize=12, color='black')
             ax1.tick_params(colors='black')
             ax1.grid(True, alpha=0.3)
-            ax1.legend(prop={'size': 10, 'color': 'black'})
+            ax1.legend()
             # Set plot background to white
             fig1.patch.set_facecolor('white')
             ax1.set_facecolor('white')
@@ -524,20 +427,17 @@ def main():
             ax3.set_facecolor('white')
             st.pyplot(fig3)
 
-        # Display summary statistics with improved program type display
+        # Display summary statistics
         st.markdown("---")
         st.header("Summary Statistics")
         
         summary_col1, summary_col2, summary_col3 = st.columns(3)
         with summary_col1:
-            # Custom container for program type to prevent text cramping
-            st.markdown('<div class="program-type-metric">', unsafe_allow_html=True)
             st.metric("Program Type", program_type)
-            st.markdown('</div>', unsafe_allow_html=True)
         with summary_col2:
             st.metric("Selected Month", month)
         with summary_col3:
-            st.metric("Participant Count", f"{participants:,}")
+            st.metric("Participant Count", participants)
 
     except KeyError as e:
         st.error(f"Missing required column in data: {str(e)}")
@@ -553,5 +453,5 @@ def main():
         unsafe_allow_html=True
     )
 
-if __name__ == "__main__":
+if _name_ == "_main_":
     main()
