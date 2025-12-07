@@ -229,14 +229,14 @@ def main():
         st.markdown("### Program Details")
         
         participants = st.number_input(
-            "*Number of Participants:*",
+            "**Number of Participants:**",
             min_value=1,
             value=30,
             help="Enter the total number of participants expected"
         )
         
         duration = st.number_input(
-            "*Duration of Program (hours):*",
+            "**Duration of Program (hours):**",
             min_value=1.0,
             value=10.0,
             step=0.5,
@@ -244,7 +244,7 @@ def main():
         )
         
         staffs = st.number_input(
-            "*Number of Staff Members:*",
+            "**Number of Staff Members:**",
             min_value=1,
             value=12,
             help="Enter the number of staff required"
@@ -254,14 +254,14 @@ def main():
         st.markdown("### Program Settings")
         
         program_type = st.radio(
-            "*Select Program Type:*",
+            "**Select Program Type:**",
             ['Competition Program', 'Modeling Program', 'Seminar Program',
              'Sport Program', 'Training Program', 'Workshop Program'],
             help="Choose the type of program"
         )
         
         month = st.selectbox(
-            "*Select Month:*",
+            "**Select Month:**",
             ['January', 'February', 'March', 'April', 'May', 'June',
              'July', 'August', 'September', 'October', 'November', 'December'],
             help="Select the month when the program will be held"
@@ -274,10 +274,10 @@ def main():
 
     # Load data
     try:
-        data_file = "PROGRAM_SANTACRUZ_DATA.csv"
+        data_file = "PROGRAM_TAGOLOAN_DATA.csv"
         data = load_data(data_file)
     except FileNotFoundError:
-        st.error("Data file not found. Please ensure 'PROGRAM_SANTACRUZ_DATA.csv' is in the same directory.")
+        st.error("Data file not found. Please ensure 'PROGRAM_TAGOLOAN_DATA.csv' is in the same directory.")
         return
     except Exception as e:
         st.error(f"Error loading data: {str(e)}")
@@ -448,10 +448,10 @@ def main():
     st.markdown("---")
     st.markdown(
         "<div style='text-align: center; color: #000000 !important;'>"
-        "Program Budget Predictor | Using Decision Tree Regression | Data Source: PROGRAM_SANTACRUZ_DATA.csv"
+        "Program Budget Predictor | Using Decision Tree Regression | Data Source: PROGRAM_TAGOLOAN_DATA.csv"
         "</div>",
         unsafe_allow_html=True
     )
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     main()
